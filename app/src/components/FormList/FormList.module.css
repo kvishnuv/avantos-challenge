@@ -1,0 +1,39 @@
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item {
+  margin: 0;
+}
+
+.button {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--text-h);
+}
+
+.button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.selected {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.message {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+}

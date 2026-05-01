@@ -1,14 +1,20 @@
 import { useGraphState } from '../../state/GraphContext';
-import type { NodeId } from '../../domain/types';
+import { setSelectedNodeId, useSelectedNodeId } from '../../state/urlState';
+import styles from './FormList.module.css';
 
 export function FormList() {
   const state = useGraphState();
+  const selectedNodeId = useSelectedNodeId();
 
   if (state.status === 'loading') {
-    return <p>Loading…</p>;
+    return <p className={styles.message}>Loading…</p>;
   }
   if (state.status === 'error') {
-    return <p role="alert">Failed to load: {state.error.message}</p>;
+    return (
+      <p className={styles.message} role="alert">
+        Failed to load: {state.error.message}
+      </p>
+    );
   }
 
   const nodes = [...state.graph.nodes.values()].sort((a, b) =>
@@ -16,24 +22,25 @@ export function FormList() {
   );
 
   return (
-    <section>
-      <h1>{state.graph.name}</h1>
-      <ul>
-        {nodes.map((node) => (
-          <li key={node.id}>
-            <button type="button" onClick={() => selectNode(node.id)}>
+    <ul className={styles.list}>
+      {nodes.map((node) => {
+        const isSelected = node.id === selectedNodeId;
+        const className = isSelected
+          ? `${styles.button} ${styles.selected}`
+          : styles.button;
+        return (
+          <li key={node.id} className={styles.item}>
+            <button
+              type="button"
+              className={className}
+              aria-current={isSelected ? 'page' : undefined}
+              onClick={() => setSelectedNodeId(node.id)}
+            >
               {node.name}
             </button>
           </li>
-        ))}
-      </ul>
-    </section>
+        );
+      })}
+    </ul>
   );
-}
-
-function selectNode(nodeId: NodeId): void {
-  const params = new URLSearchParams(window.location.search);
-  params.set('selectedNodeId', nodeId);
-  const next = `${window.location.pathname}?${params.toString()}`;
-  window.history.pushState(null, '', next);
 }

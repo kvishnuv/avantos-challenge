@@ -1,0 +1,25 @@
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 16px 24px;
+  padding: 24px;
+  text-align: left;
+  align-items: start;
+}
+
+.title {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: normal;
+}
+
+.left,
+.right {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px;
+  background: transparent;
+}
