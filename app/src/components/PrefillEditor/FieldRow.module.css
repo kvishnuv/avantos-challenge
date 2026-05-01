@@ -12,6 +12,16 @@
 .unmapped {
   border: 1px dashed var(--border);
   background: transparent;
+  font: inherit;
+  font-size: 14px;
+  color: var(--text-h);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.unmapped:hover {
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .mapped {
